@@ -85,8 +85,8 @@ setup_postgresql() {
         docker cp database.sql postgres-db:/database.sql
         docker cp user_fixture.sql postgres-db:/user_fixture.sql
         echo "CREATE DATABASE University;" | docker exec -u posetres postgres-db psql -U postgres
-        docker exec -u postgres postgres-db psql -d University -f ./database.sql
-        docker exec -u postgres postgres-db psql -d University -f ./user_fixture.sql
+        docker exec -u postgres postgres-db psql -d mydb -f ./database.sql
+        docker exec -u postgres postgres-db psql -d mydb -f ./user_fixture.sql
         echo -e "${GREEN}Database initialized successfully.${RESET}"
     else
         echo -e "${RED}No database.sql file found. Skipping database initialization.${RESET}"

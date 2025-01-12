@@ -26,8 +26,8 @@ CREATE TABLE "Student" (
     "student_id" SERIAL PRIMARY KEY,
     "user_id" INTEGER NOT NULL UNIQUE REFERENCES "User" (user_id) ON DELETE CASCADE,
     "department_id" INTEGER NOT NULL REFERENCES "Department" (department_id) ON DELETE SET NULL,
-    "degree_status" VARCHAR(10) NOT NULL,
-    "status" VARCHAR(10) NOT NULL
+    "degree_status" VARCHAR(15) NOT NULL,
+    "status" VARCHAR(15) NOT NULL
 );
 
 CREATE TABLE "Lesson" (

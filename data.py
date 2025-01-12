@@ -57,7 +57,7 @@ def create_departments(curr):
             'معماری داخلی', 'هنرهای تجسمی'
         ],
         'دانشکده علوم اجتماعی': [
-            'جامعه‌شناسی', 'مردم‌شناسی', 'مددکاری اجتماعی', 'جغرافیا', 'برنامه‌ریزی شهری'
+           'مردم‌شناسی', 'مددکاری اجتماعی', 'جغرافیا', 'برنامه‌ریزی شهری'
         ],
         'دانشکده کشاورزی': [
             'کشاورزی', 'باغبانی', 'علوم دامی', 'علوم خاک', 'مهندسی آب و خاک'
@@ -407,7 +407,7 @@ def create_courses(curr):
     lessons = [i[0] for i in lessons]
     for semester in semesters:
         for lesson in lessons:
-            curr.execute('INSERT INTO "Course" ("semester_id", "lesson_id", "maximum_capacity") VALUES (%s, %s, %s)', (semester, lesson, 60))
+            curr.execute('INSERT INTO "Course" ("semester_id", "lesson_id", "maximum_capacity") VALUES (%s, %s, %s)', (semester, lesson, 6))
     #print(curr.execute('SELECT * FROM "Course"').fetchall())
 
 def create_enrolments(curr):
