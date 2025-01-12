@@ -8,11 +8,11 @@ fake = faker.Faker(["fa_IR"])
 
 def get_connection():
     return psycopg.connect(
-        dbname="university",
+        dbname="mydb",
         user="postgres",
-        password="09204412769",
+        password="password",
         host="localhost",
-        options="-c search_path=university,public",  # Setting schema search path at the connection level
+        options="-c search_path=mydb,public",  # Setting schema search path at the connection level
         port=5432
     )
 

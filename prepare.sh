@@ -72,7 +72,7 @@ setup_postgresql() {
     fi
     # Run PostgreSQL container
     echo -e "${YELLOW}Starting PostgreSQL container...${RESET}"
-    docker run --name postgres-db -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=password -e POSTGRES_DB=mydb -p 5432:5432 -d focker.ir/postgres:latest
+    docker run --name postgres-db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=password -e POSTGRES_DB=mydb -p 5432:5432 -d focker.ir/postgres:latest
 
     echo -e "${GREEN}PostgreSQL container is running.${RESET}"
 
@@ -82,8 +82,9 @@ setup_postgresql() {
     # Execute the SQL file if provided
     if [ -f "database.sql" ]; then
         echo -e "${YELLOW}Initializing database with database.sql...${RESET}"
-        cp database.sql postgres-db:/database.sql
-        echo "CREATE DATABASE University;" > docker exec -u posetres postgres-db psql -U postgres
+        docker cp database.sql postgres-db:/database.sql
+        docker cp user_fixture.sql postgres-db:/user_fixture.sql
+        echo "CREATE DATABASE University;" | docker exec -u posetres postgres-db psql -U postgres
         docker exec -u postgres postgres-db psql -d University -f ./database.sql
         docker exec -u postgres postgres-db psql -d University -f ./user_fixture.sql
         echo -e "${GREEN}Database initialized successfully.${RESET}"
@@ -97,12 +98,12 @@ display_details() {
     print_header "PostgreSQL Database Details"
     echo -e "${BLUE}Container Name: ${RESET}postgres-db"
     echo -e "${BLUE}Database Name: ${RESET}mydb"
-    echo -e "${BLUE}Username: ${RESET}admin"
+    echo -e "${BLUE}Username: ${RESET}postgres"
     echo -e "${BLUE}Password: ${RESET}password"
     echo -e "${BLUE}Host: ${RESET}localhost"
     echo -e "${BLUE}Port: ${RESET}5432"
     echo -e "${CYAN}You can connect to the database using the following command:${RESET}"
-    echo -e "${YELLOW}psql -h localhost -U admin -d mydb${RESET}"
+    echo -e "${YELLOW}docker exec postgres-db -it psql -h localhost -U postgres -d mydb${RESET}"
 }
 
 # Main script

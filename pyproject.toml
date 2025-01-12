@@ -6,7 +6,7 @@ authors = ["Hosna83 <rasihosna68@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.10"
 faker = "^33.3.0"
 ptpython = "^3.0.29"
 psycopg-binary = "^3.2.3"
